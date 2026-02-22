@@ -1,0 +1,225 @@
+{% extends 'testapp/base.html' %}
+{% load math_filters %}
+
+{% block title %}Admin Dashboard - Blood Bank Management System{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top: 100px; background: var(--off-white); min-height: 100vh;">
+    <div class="container">
+        <div style="margin-bottom: var(--spacing-xl);">
+            <h1><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h1>
+            <p style="color: var(--gray); font-size: 1.1rem;">
+                Overview of blood bank operations and statistics
+            </p>
+        </div>
+        
+        <!-- Statistics Cards -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-lg); margin-bottom: var(--spacing-xl);">
+            <div class="card" style="background: linear-gradient(135deg, #E63946, #C5303A); color: white;">
+                <div style="display: flex; justify-content: space-between; align-items: start;">
+                    <div>
+                        <div style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 8px;">Total Donors</div>
+                        <div style="font-size: 2.5rem; font-weight: 700;">{{ stats.total_donors }}</div>
+                        <div style="font-size: 0.85rem; opacity: 0.8; margin-top: 4px;">
+                            {{ stats.available_donors }} available
+                        </div>
+                    </div>
+                    <div style="font-size: 3rem; opacity: 0.3;">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="background: linear-gradient(135deg, #457B9D, #3A6A87); color: white;">
+                <div style="display: flex; justify-content: space-between; align-items: start;">
+                    <div>
+                        <div style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 8px;">Blood Units</div>
+                        <div style="font-size: 2.5rem; font-weight: 700;">{{ stats.units_in_stock }}</div>
+                        <div style="font-size: 0.85rem; opacity: 0.8; margin-top: 4px;">
+                            In stock
+                        </div>
+                    </div>
+                    <div style="font-size: 3rem; opacity: 0.3;">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="background: linear-gradient(135deg, #FFC107, #E0A800); color: white;">
+                <div style="display: flex; justify-content: space-between; align-items: start;">
+                    <div>
+                        <div style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 8px;">Pending Requests</div>
+                        <div style="font-size: 2.5rem; font-weight: 700;">{{ stats.pending_requests }}</div>
+                        <div style="font-size: 0.85rem; opacity: 0.8; margin-top: 4px;">
+                            Need review
+                        </div>
+                    </div>
+                    <div style="font-size: 3rem; opacity: 0.3;">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="background: linear-gradient(135deg, #28A745, #218838); color: white;">
+                <div style="display: flex; justify-content: space-between; align-items: start;">
+                    <div>
+                        <div style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 8px;">Lives Saved</div>
+                        <div style="font-size: 2.5rem; font-weight: 700;">{{ stats.fulfilled_requests|mul:3 }}</div>
+                        <div style="font-size: 0.85rem; opacity: 0.8; margin-top: 4px;">
+                            {{ stats.fulfilled_requests }} requests fulfilled
+                        </div>
+                    </div>
+                    <div style="font-size: 3rem; opacity: 0.3;">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: var(--spacing-lg); margin-bottom: var(--spacing-lg);">
+            <!-- Recent Blood Requests -->
+            <div class="card" style="padding: var(--spacing-lg);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md);">
+                    <h3><i class="fas fa-list"></i> Recent Blood Requests</h3>
+                    <a href="{% url 'manage_requests' %}" class="btn btn-outline" style="padding: 8px 16px; font-size: 0.9rem;">
+                        View All
+                    </a>
+                </div>
+                
+                {% if recent_requests %}
+                <div style="overflow-x: auto;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Request ID</th>
+                                <th>Patient</th>
+                                <th>Blood Group</th>
+                                <th>Units</th>
+                                <th>Urgency</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for request in recent_requests %}
+                            <tr>
+                                <td><strong>{{ request.request_id }}</strong></td>
+                                <td>{{ request.patient_name }}</td>
+                                <td>
+                                    <span style="font-weight: 700; color: var(--primary-red);">{{ request.blood_group }}</span>
+                                </td>
+                                <td>{{ request.units_required }}</td>
+                                <td>
+                                    <span class="badge {% if request.urgency == 'critical' %}badge-danger{% elif request.urgency == 'urgent' %}badge-warning{% else %}badge-info{% endif %}">
+                                        {{ request.get_urgency_display }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge {% if request.status == 'fulfilled' %}badge-success{% elif request.status == 'pending' %}badge-warning{% elif request.status == 'approved' %}badge-info{% else %}badge-danger{% endif %}">
+                                        {{ request.get_status_display }}
+                                    </span>
+                                </td>
+                                <td>{{ request.created_at|date:"M d, Y" }}</td>
+                                <td>
+                                    <a href="{% url 'manage_requests' %}" class="btn btn-primary" style="padding: 4px 12px; font-size: 0.85rem;">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p style="text-align: center; color: var(--gray); padding: var(--spacing-lg);">No recent requests</p>
+                {% endif %}
+            </div>
+            
+            <!-- Quick Actions -->
+            <div class="card" style="padding: var(--spacing-lg);">
+                <h3 style="margin-bottom: var(--spacing-md);"><i class="fas fa-bolt"></i> Quick Actions</h3>
+                <div style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
+                    <a href="{% url 'manage_donors' %}" class="btn btn-outline" style="width: 100%; text-align: left; justify-content: start;">
+                        <i class="fas fa-users"></i> Manage Donors
+                    </a>
+                    <a href="{% url 'manage_requests' %}" class="btn btn-outline" style="width: 100%; text-align: left; justify-content: start;">
+                        <i class="fas fa-list-alt"></i> Manage Requests
+                    </a>
+                    <a href="/admin/" class="btn btn-outline" style="width: 100%; text-align: left; justify-content: start;">
+                        <i class="fas fa-database"></i> Database Admin
+                    </a>
+                    <a href="{% url 'create_blood_request' %}" class="btn btn-outline" style="width: 100%; text-align: left; justify-content: start;">
+                        <i class="fas fa-plus-circle"></i> New Request
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Blood Stock Status -->
+        <div class="card" style="padding: var(--spacing-lg);">
+            <h3 style="margin-bottom: var(--spacing-md);"><i class="fas fa-tint"></i> Blood Stock Status</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--spacing-md);">
+                {% for stock in blood_stocks %}
+                <div style="background: {% if stock.status == 'critical' %}#F8D7DA{% elif stock.status == 'low' %}#FFF3CD{% else %}#D4EDDA{% endif %}; padding: var(--spacing-md); border-radius: var(--radius-md); text-align: center; border: 2px solid {% if stock.status == 'critical' %}var(--danger){% elif stock.status == 'low' %}var(--warning){% else %}var(--success){% endif %};">
+                    <div style="font-size: 2rem; font-weight: 700; color: {% if stock.status == 'critical' %}var(--danger){% elif stock.status == 'low' %}#856404{% else %}var(--success){% endif %};">
+                        {{ stock.blood_group }}
+                    </div>
+                    <div style="font-size: 1.25rem; font-weight: 600; margin: var(--spacing-xs) 0;">
+                        {{ stock.units_available }}
+                    </div>
+                    <div style="font-size: 0.85rem; color: var(--gray);">units</div>
+                    <div style="margin-top: var(--spacing-xs);">
+                        <span style="display: inline-block; padding: 4px 8px; background: white; border-radius: 4px; font-size: 0.75rem; font-weight: 600; color: {% if stock.status == 'critical' %}var(--danger){% elif stock.status == 'low' %}#856404{% else %}var(--success){% endif %};">
+                            {% if stock.status == 'sufficient' %}✓ OK
+                            {% elif stock.status == 'low' %}⚠ LOW
+                            {% else %}✗ CRITICAL{% endif %}
+                        </span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Recent Donations -->
+        <div class="card" style="padding: var(--spacing-lg); margin-top: var(--spacing-lg);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md);">
+                <h3><i class="fas fa-history"></i> Recent Donations</h3>
+                <span class="badge badge-info">{{ stats.total_donations }} total</span>
+            </div>
+            
+            {% if recent_donations %}
+            <div style="overflow-x: auto;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Donor</th>
+                            <th>Blood Group</th>
+                            <th>Units</th>
+                            <th>Date</th>
+                            <th>Center</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for donation in recent_donations %}
+                        <tr>
+                            <td>{{ donation.donor.user.get_full_name }}</td>
+                            <td><strong style="color: var(--primary-red);">{{ donation.blood_group }}</strong></td>
+                            <td>{{ donation.units_donated }}</td>
+                            <td>{{ donation.donation_date|date:"M d, Y" }}</td>
+                            <td>{{ donation.donation_center }}</td>
+                            <td><span class="badge badge-secondary">{{ donation.get_donation_type_display }}</span></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p style="text-align: center; color: var(--gray); padding: var(--spacing-lg);">No recent donations</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

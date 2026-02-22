@@ -1,0 +1,48 @@
+# Blood Bank Management System - Requirements
+# Python 3.8+
+
+# Django
+Django==5.2.7
+
+# Database
+mysqlclient==2.2.0
+
+# ==================== REST API PACKAGES ====================
+
+# Django REST Framework
+djangorestframework==3.14.0
+markdown==3.5.1
+
+# Filtering & Search
+django-filter==23.3
+
+# CORS Support
+django-cors-headers==4.3.0
+
+# API Documentation
+drf-spectacular==0.26.5
+
+# Static Files (Production)
+whitenoise==6.6.0
+
+# ==================== OPTIONAL PACKAGES ====================
+
+# For better environment variable handling (recommended)
+# python-decouple==3.8
+
+# For production server
+# gunicorn==21.2.0
+
+# For PostgreSQL (production database)
+# psycopg2-binary==2.9.9
+
+# For image processing
+# Pillow==10.1.0
+
+# For testing
+# pytest==7.4.3
+# pytest-django==4.7.0
+
+# For code quality
+# flake8==6.1.0
+# black==23.12.0

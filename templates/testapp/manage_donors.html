@@ -1,0 +1,201 @@
+{% extends 'testapp/base.html' %}
+{% load math_filters %}
+
+{% block title %}Manage Donors - Blood Bank Management System{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top: 100px; background: var(--off-white); min-height: 100vh;">
+    <div class="container">
+        <div style="margin-bottom: var(--spacing-xl);">
+            <h1><i class="fas fa-users"></i> Manage Donors</h1>
+            <p style="color: var(--gray); font-size: 1.1rem;">
+                View and manage all registered blood donors
+            </p>
+        </div>
+        
+        <!-- Search and Filter -->
+        <div class="card" style="padding: var(--spacing-lg); margin-bottom: var(--spacing-lg);">
+            <form method="GET" style="display: grid; grid-template-columns: 2fr 1fr auto; gap: var(--spacing-md); align-items: end;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label for="search" class="form-label">Search Donors</label>
+                    <input type="text" 
+                           id="search" 
+                           name="search" 
+                           class="form-control" 
+                           placeholder="Search by name, email..."
+                           value="{{ request.GET.search }}">
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label for="blood_group" class="form-label">Blood Group</label>
+                    <select id="blood_group" 
+                            name="blood_group" 
+                            class="form-control">
+                        <option value="">All Blood Groups</option>
+                        {% for bg in blood_groups %}
+                        <option value="{{ bg.0 }}" {% if request.GET.blood_group == bg.0 %}selected{% endif %}>{{ bg.1 }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i> Filter
+                </button>
+            </form>
+        </div>
+        
+        <!-- Summary Stats -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-md); margin-bottom: var(--spacing-lg);">
+            <div class="card" style="padding: var(--spacing-md); background: linear-gradient(135deg, #28A745, #218838); color: white;">
+                <div style="font-size: 2rem; font-weight: 700; margin-bottom: 4px;">{{ donors.paginator.count }}</div>
+                <div style="opacity: 0.9;">Total Donors{% if request.GET.search or request.GET.blood_group %} (Filtered){% endif %}</div>
+            </div>
+        </div>
+        
+        <!-- Donors Table -->
+        {% if donors %}
+        <div class="card" style="padding: 0; overflow: hidden;">
+            <div style="overflow-x: auto;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Blood Group</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Contact</th>
+                            <th>Location</th>
+                            <th>Donations</th>
+                            <th>Status</th>
+                            <th>Last Donation</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for donor in donors %}
+                        <tr>
+                            <td>
+                                <strong>{{ donor.user.get_full_name|default:donor.user.username }}</strong>
+                                <div style="font-size: 0.85rem; color: var(--gray);">{{ donor.user.email }}</div>
+                            </td>
+                            <td>
+                                <span style="display: inline-block; background: linear-gradient(135deg, var(--primary-red), var(--primary-red-dark)); color: white; padding: 6px 12px; border-radius: 6px; font-weight: 700;">
+                                    {{ donor.blood_group }}
+                                </span>
+                            </td>
+                            <td>{{ donor.age }} yrs</td>
+                            <td>{{ donor.get_gender_display }}</td>
+                            <td>
+                                <div style="font-size: 0.9rem;">{{ donor.user.profile.phone|default:"N/A" }}</div>
+                            </td>
+                            <td>{{ donor.user.profile.city|default:"Not specified" }}</td>
+                            <td>
+                                <strong style="color: var(--primary-red);">{{ donor.total_donations }}</strong>
+                                <div style="font-size: 0.75rem; color: var(--gray);">{{ donor.total_donations|mul:3 }} lives saved</div>
+                            </td>
+                            <td>
+                                {% if donor.is_available %}
+                                <span class="badge badge-success">
+                                    <i class="fas fa-check-circle"></i> Available
+                                </span>
+                                {% else %}
+                                <span class="badge badge-secondary">
+                                    <i class="fas fa-times-circle"></i> Unavailable
+                                </span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if donor.last_donation_date %}
+                                {{ donor.last_donation_date|date:"M d, Y" }}
+                                <div style="font-size: 0.75rem; color: var(--gray);">{{ donor.last_donation_date|timesince }} ago</div>
+                                {% else %}
+                                <span style="color: var(--gray);">Never</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="mailto:{{ donor.user.email }}" 
+                                   class="btn btn-outline" 
+                                   style="padding: 6px 12px; font-size: 0.85rem;"
+                                   title="Email Donor">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pagination -->
+            {% if donors.has_other_pages %}
+            <div style="padding: var(--spacing-md); background: var(--off-white); border-top: 1px solid var(--light-gray);">
+                <div style="display: flex; justify-content: center; align-items: center; gap: var(--spacing-sm);">
+                    {% if donors.has_previous %}
+                    <a href="?page=1{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.blood_group %}&blood_group={{ request.GET.blood_group }}{% endif %}" 
+                       class="btn btn-outline" 
+                       style="padding: 8px 12px;">
+                        <i class="fas fa-angle-double-left"></i>
+                    </a>
+                    <a href="?page={{ donors.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.blood_group %}&blood_group={{ request.GET.blood_group }}{% endif %}" 
+                       class="btn btn-outline" 
+                       style="padding: 8px 12px;">
+                        <i class="fas fa-angle-left"></i>
+                    </a>
+                    {% endif %}
+                    
+                    <span style="padding: 0 var(--spacing-md);">
+                        Page {{ donors.number }} of {{ donors.paginator.num_pages }}
+                    </span>
+                    
+                    {% if donors.has_next %}
+                    <a href="?page={{ donors.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.blood_group %}&blood_group={{ request.GET.blood_group }}{% endif %}" 
+                       class="btn btn-outline" 
+                       style="padding: 8px 12px;">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a href="?page={{ donors.paginator.num_pages }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.blood_group %}&blood_group={{ request.GET.blood_group }}{% endif %}" 
+                       class="btn btn-outline" 
+                       style="padding: 8px 12px;">
+                        <i class="fas fa-angle-double-right"></i>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% else %}
+        <div class="card" style="padding: var(--spacing-xxl); text-align: center;">
+            <div style="font-size: 4rem; color: var(--gray); margin-bottom: var(--spacing-md);">
+                <i class="fas fa-users"></i>
+            </div>
+            <h3>No Donors Found</h3>
+            <p style="color: var(--gray);">
+                {% if request.GET.search or request.GET.blood_group %}
+                No donors match your search criteria. Try adjusting your filters.
+                {% else %}
+                No donors registered yet.
+                {% endif %}
+            </p>
+        </div>
+        {% endif %}
+        
+        <!-- Export Options -->
+        <div class="card" style="padding: var(--spacing-lg); margin-top: var(--spacing-lg); background: linear-gradient(135deg, #457B9D, #3A6A87); color: white;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h3 style="color: white; margin-bottom: 8px;">Export Donor Data</h3>
+                    <p style="opacity: 0.9; margin: 0;">Download donor list for reporting and analysis</p>
+                </div>
+                <div style="display: flex; gap: var(--spacing-sm);">
+                    <button class="btn" style="background: white; color: var(--secondary-blue);">
+                        <i class="fas fa-file-csv"></i> Export CSV
+                    </button>
+                    <button class="btn" style="background: white; color: var(--secondary-blue);">
+                        <i class="fas fa-file-pdf"></i> Export PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

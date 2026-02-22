@@ -1,0 +1,156 @@
+{% extends 'testapp/base.html' %}
+{% load math_filters %}
+
+{% block title %}Agent Dashboard - Blood Bank Management System{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top: 100px; background: var(--off-white); min-height: 100vh;">
+    <div class="container">
+        <div style="margin-bottom: var(--spacing-xl);">
+            <h1><i class="fas fa-user-tie"></i> Agent Dashboard</h1>
+            <p style="color: var(--gray); font-size: 1.1rem;">
+                Manage and coordinate blood requests
+            </p>
+        </div>
+        
+        <!-- Quick Stats -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-lg); margin-bottom: var(--spacing-xl);">
+            <div class="card" style="background: linear-gradient(135deg, #FFC107, #E0A800); color: white;">
+                <div style="display: flex; justify-content: space-between; align-items: start;">
+                    <div>
+                        <div style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 8px;">Pending Requests</div>
+                        <div style="font-size: 2.5rem; font-weight: 700;">{{ pending_requests.count }}</div>
+                        <div style="font-size: 0.85rem; opacity: 0.8; margin-top: 4px;">Need attention</div>
+                    </div>
+                    <div style="font-size: 3rem; opacity: 0.3;">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="background: linear-gradient(135deg, #E63946, #C5303A); color: white;">
+                <div style="display: flex; justify-content: space-between; align-items: start;">
+                    <div>
+                        <div style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 8px;">Urgent Cases</div>
+                        <div style="font-size: 2.5rem; font-weight: 700;">
+                            {{ pending_requests|filter_by_urgency:'urgent'|add:pending_requests|filter_by_urgency:'critical' }}
+                        </div>
+                        <div style="font-size: 0.85rem; opacity: 0.8; margin-top: 4px;">Require immediate action</div>
+                    </div>
+                    <div style="font-size: 3rem; opacity: 0.3;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pending Requests -->
+        <div class="card" style="padding: var(--spacing-lg);">
+            <div style="margin-bottom: var(--spacing-lg);">
+                <h2><i class="fas fa-list"></i> Pending Blood Requests</h2>
+                <p style="color: var(--gray);">Review and process blood requests from hospitals and patients</p>
+            </div>
+            
+            {% if pending_requests %}
+            <div style="display: grid; gap: var(--spacing-md);">
+                {% for blood_request in pending_requests %}
+                <div style="padding: var(--spacing-lg); background: var(--off-white); border-radius: var(--radius-md); border-left: 4px solid {% if blood_request.urgency == 'critical' %}var(--danger){% elif blood_request.urgency == 'urgent' %}var(--warning){% else %}var(--info){% endif %};">
+                    <div style="display: grid; grid-template-columns: 1fr auto; gap: var(--spacing-lg); align-items: start;">
+                        <div>
+                            <div style="display: flex; gap: var(--spacing-md); align-items: center; margin-bottom: var(--spacing-sm);">
+                                <h3 style="margin: 0;">{{ blood_request.patient_name }}</h3>
+                                <span class="badge {% if blood_request.urgency == 'critical' %}badge-danger{% elif blood_request.urgency == 'urgent' %}badge-warning{% else %}badge-info{% endif %}">
+                                    {{ blood_request.get_urgency_display }}
+                                </span>
+                                <span style="font-weight: 700; color: var(--primary-red); font-size: 1.25rem;">
+                                    {{ blood_request.blood_group }}
+                                </span>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-sm); color: var(--gray); margin-bottom: var(--spacing-sm);">
+                                <div>
+                                    <i class="fas fa-fingerprint"></i> {{ blood_request.request_id }}
+                                </div>
+                                <div>
+                                    <i class="fas fa-hospital"></i> {{ blood_request.hospital_name }}
+                                </div>
+                                <div>
+                                    <i class="fas fa-map-marker-alt"></i> {{ blood_request.city }}
+                                </div>
+                                <div>
+                                    <i class="fas fa-tint"></i> {{ blood_request.units_required }} units needed
+                                </div>
+                                <div>
+                                    <i class="fas fa-user"></i> {{ blood_request.requester_name }}
+                                </div>
+                                <div>
+                                    <i class="fas fa-phone"></i> {{ blood_request.requester_phone }}
+                                </div>
+                            </div>
+                            
+                            <div style="background: white; padding: var(--spacing-sm); border-radius: var(--radius-sm); margin-top: var(--spacing-sm);">
+                                <strong>Reason:</strong> {{ blood_request.reason }}
+                            </div>
+                            
+                            <div style="margin-top: var(--spacing-sm); color: var(--gray); font-size: 0.9rem;">
+                                <i class="fas fa-clock"></i> Requested {{ blood_request.created_at|timesince }} ago
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; flex-direction: column; gap: var(--spacing-sm); min-width: 150px;">
+                            <a href="{% url 'manage_requests' %}" class="btn btn-primary" style="padding: 10px 20px; text-align: center;">
+                                <i class="fas fa-edit"></i> Process
+                            </a>
+                            <a href="tel:{{ blood_request.requester_phone }}" class="btn btn-outline" style="padding: 10px 20px; text-align: center;">
+                                <i class="fas fa-phone"></i> Call
+                            </a>
+                            <a href="{% url 'search_donors' %}?blood_group={{ blood_request.blood_group }}&city={{ blood_request.city }}" 
+                               class="btn btn-outline" 
+                               style="padding: 10px 20px; text-align: center;">
+                                <i class="fas fa-search"></i> Find Donors
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div style="text-align: center; padding: var(--spacing-xxl); color: var(--gray);">
+                <div style="font-size: 4rem; margin-bottom: var(--spacing-md);">
+                    <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                </div>
+                <h3>All Caught Up!</h3>
+                <p>No pending blood requests at the moment.</p>
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- Quick Actions -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-md); margin-top: var(--spacing-lg);">
+            <a href="{% url 'manage_requests' %}" class="card" style="padding: var(--spacing-lg); text-decoration: none; color: inherit; transition: all var(--transition-normal);">
+                <div style="font-size: 2.5rem; color: var(--primary-red); margin-bottom: var(--spacing-sm);">
+                    <i class="fas fa-list-alt"></i>
+                </div>
+                <h3>All Requests</h3>
+                <p style="color: var(--gray); margin: 0;">View and manage all blood requests</p>
+            </a>
+            
+            <a href="{% url 'search_donors' %}" class="card" style="padding: var(--spacing-lg); text-decoration: none; color: inherit; transition: all var(--transition-normal);">
+                <div style="font-size: 2.5rem; color: var(--secondary-blue); margin-bottom: var(--spacing-sm);">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Find Donors</h3>
+                <p style="color: var(--gray); margin: 0;">Search for available blood donors</p>
+            </a>
+            
+            <a href="/admin/" class="card" style="padding: var(--spacing-lg); text-decoration: none; color: inherit; transition: all var(--transition-normal);">
+                <div style="font-size: 2.5rem; color: var(--accent-teal); margin-bottom: var(--spacing-sm);">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3>Database Admin</h3>
+                <p style="color: var(--gray); margin: 0;">Access full database management</p>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

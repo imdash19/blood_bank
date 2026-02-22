@@ -1,0 +1,193 @@
+{% extends 'testapp/base.html' %}
+
+{% block title %}Request Blood - Blood Bank Management System{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top: 100px; background: var(--off-white); min-height: 100vh;">
+    <div class="container">
+        <div style="max-width: 900px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: var(--spacing-xl);">
+                <div style="font-size: 4rem; margin-bottom: var(--spacing-md);">🩸</div>
+                <h1>Request Blood</h1>
+                <p style="color: var(--gray); font-size: 1.1rem;">
+                    Fill out the form below and we'll connect you with available donors
+                </p>
+            </div>
+            
+            <div class="card" style="padding: var(--spacing-xl);">
+                <form method="POST" data-validate="true">
+                    {% csrf_token %}
+                    
+                    <h3 style="margin-bottom: var(--spacing-md); color: var(--dark-gray); font-size: 1.2rem;">
+                        <i class="fas fa-user"></i> Requester Information
+                    </h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md);">
+                        <div class="form-group">
+                            <label for="requester_name" class="form-label">Your Name *</label>
+                            <input type="text" 
+                                   id="requester_name" 
+                                   name="requester_name" 
+                                   class="form-control" 
+                                   placeholder="Enter your full name" 
+                                   required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="requester_phone" class="form-label">Your Phone *</label>
+                            <input type="tel" 
+                                   id="requester_phone" 
+                                   name="requester_phone" 
+                                   class="form-control" 
+                                   placeholder="+91 98765 43210" 
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="requester_email" class="form-label">Your Email</label>
+                        <input type="email" 
+                               id="requester_email" 
+                               name="requester_email" 
+                               class="form-control" 
+                               placeholder="your.email@example.com">
+                    </div>
+                    
+                    <hr style="margin: var(--spacing-lg) 0; border: none; border-top: 2px solid var(--light-gray);">
+                    
+                    <h3 style="margin-bottom: var(--spacing-md); color: var(--dark-gray); font-size: 1.2rem;">
+                        <i class="fas fa-procedures"></i> Patient Information
+                    </h3>
+                    
+                    <div class="form-group">
+                        <label for="patient_name" class="form-label">Patient Name *</label>
+                        <input type="text" 
+                               id="patient_name" 
+                               name="patient_name" 
+                               class="form-control" 
+                               placeholder="Enter patient's full name" 
+                               required>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--spacing-md);">
+                        <div class="form-group">
+                            <label for="blood_group" class="form-label">Blood Group Required *</label>
+                            <select id="blood_group" 
+                                    name="blood_group" 
+                                    class="form-control" 
+                                    required>
+                                <option value="">Select Blood Group</option>
+                                {% for bg in blood_groups %}
+                                <option value="{{ bg.0 }}">{{ bg.1 }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="units_required" class="form-label">Units Required *</label>
+                            <input type="number" 
+                                   id="units_required" 
+                                   name="units_required" 
+                                   class="form-control" 
+                                   placeholder="Number of units" 
+                                   min="1" 
+                                   max="10" 
+                                   required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="urgency" class="form-label">Urgency Level *</label>
+                            <select id="urgency" 
+                                    name="urgency" 
+                                    class="form-control" 
+                                    required>
+                                <option value="normal">Normal</option>
+                                <option value="urgent">Urgent</option>
+                                <option value="critical">Critical</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reason" class="form-label">Reason for Blood Requirement *</label>
+                        <textarea id="reason" 
+                                  name="reason" 
+                                  class="form-control" 
+                                  placeholder="Describe why blood is needed (e.g., surgery, accident, medical condition)"
+                                  required></textarea>
+                    </div>
+                    
+                    <hr style="margin: var(--spacing-lg) 0; border: none; border-top: 2px solid var(--light-gray);">
+                    
+                    <h3 style="margin-bottom: var(--spacing-md); color: var(--dark-gray); font-size: 1.2rem;">
+                        <i class="fas fa-hospital"></i> Hospital Information
+                    </h3>
+                    
+                    <div class="form-group">
+                        <label for="hospital_name" class="form-label">Hospital Name *</label>
+                        <input type="text" 
+                               id="hospital_name" 
+                               name="hospital_name" 
+                               class="form-control" 
+                               placeholder="Enter hospital name" 
+                               required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hospital_address" class="form-label">Hospital Address *</label>
+                        <textarea id="hospital_address" 
+                                  name="hospital_address" 
+                                  class="form-control" 
+                                  placeholder="Enter complete hospital address"
+                                  style="min-height: 80px;"
+                                  required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="city" class="form-label">City *</label>
+                        <input type="text" 
+                               id="city" 
+                               name="city" 
+                               class="form-control" 
+                               placeholder="Enter city" 
+                               required>
+                    </div>
+                    
+                    <div style="background: #D1ECF1; padding: var(--spacing-md); border-radius: var(--radius-md); border-left: 4px solid var(--info); margin-bottom: var(--spacing-lg);">
+                        <h4 style="color: var(--info); margin-bottom: 8px;">
+                            <i class="fas fa-info-circle"></i> Important Information
+                        </h4>
+                        <ul style="color: #0C5460; margin-left: 20px; line-height: 1.8;">
+                            <li>Your request will be reviewed by our team within 1-2 hours</li>
+                            <li>We will match you with available donors in your area</li>
+                            <li>You will receive notifications via phone and email</li>
+                            <li>Please ensure all information provided is accurate</li>
+                            <li>For emergency cases, please contact: <strong>+91 123 456 7890</strong></li>
+                        </ul>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 16px; font-size: 1.1rem;">
+                        <i class="fas fa-paper-plane"></i> Submit Blood Request
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-md); margin-top: var(--spacing-lg);">
+                <div class="card" style="text-align: center; background: linear-gradient(135deg, #28A745, #218838); color: white;">
+                    <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 8px;">95%</div>
+                    <div>Success Rate</div>
+                </div>
+                <div class="card" style="text-align: center; background: linear-gradient(135deg, #17A2B8, #138496); color: white;">
+                    <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 8px;">&lt;2h</div>
+                    <div>Average Response Time</div>
+                </div>
+                <div class="card" style="text-align: center; background: linear-gradient(135deg, #FFC107, #E0A800); color: white;">
+                    <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 8px;">24/7</div>
+                    <div>Support Available</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

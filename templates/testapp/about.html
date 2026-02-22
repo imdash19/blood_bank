@@ -1,0 +1,107 @@
+{% extends 'testapp/base.html' %}
+
+{% block title %}About Us - Blood Bank Management System{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top: 100px;">
+    <div class="container">
+        <div style="text-align: center; margin-bottom: var(--spacing-xxl);">
+            <h1>About LifeBlood</h1>
+            <p style="font-size: 1.2rem; color: var(--gray); max-width: 700px; margin: 0 auto;">
+                Connecting donors with those in need, one drop at a time
+            </p>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-xxl); align-items: center; margin-bottom: var(--spacing-xxl);">
+            <div>
+                <h2>Our Mission</h2>
+                <p>
+                    At LifeBlood, we believe that saving lives should be simple, accessible, and efficient. 
+                    Our mission is to bridge the gap between blood donors and patients in need through 
+                    innovative technology and compassionate service.
+                </p>
+                <p>
+                    We strive to create a community of heroes who understand that a single donation can 
+                    save up to three lives. Through our platform, we make it easy for donors to register, 
+                    stay informed, and respond quickly when their blood type is needed.
+                </p>
+            </div>
+            <div style="background: linear-gradient(135deg, #E63946, #C5303A); padding: var(--spacing-xl); border-radius: var(--radius-lg); color: white; text-align: center;">
+                <div style="font-size: 4rem; margin-bottom: var(--spacing-md);">🩸</div>
+                <h3 style="color: white; margin-bottom: var(--spacing-md);">Every Drop Counts</h3>
+                <p style="opacity: 0.9;">Join thousands of heroes making a difference</p>
+            </div>
+        </div>
+        
+        <div style="background: var(--off-white); padding: var(--spacing-xxl); border-radius: var(--radius-lg); margin-bottom: var(--spacing-xxl);">
+            <h2 style="text-align: center; margin-bottom: var(--spacing-xl);">What We Do</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--spacing-lg);">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="card-title">Donor Network</h3>
+                    <p class="card-text">
+                        We maintain a comprehensive database of registered blood donors, making it easy 
+                        to find matches based on blood type and location.
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <h3 class="card-title">Hospital Coordination</h3>
+                    <p class="card-text">
+                        We work closely with hospitals and medical facilities to ensure urgent blood 
+                        requirements are met quickly and efficiently.
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3 class="card-title">Instant Notifications</h3>
+                    <p class="card-text">
+                        Donors receive instant notifications when their blood type is needed, enabling 
+                        rapid response in critical situations.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: var(--spacing-xxl);">
+            <h2 style="text-align: center; margin-bottom: var(--spacing-xl);">Our Impact</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-lg);">
+                <div style="text-align: center; padding: var(--spacing-lg); background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);">
+                    <div style="font-size: 3rem; color: var(--primary-red); font-weight: 700; margin-bottom: 8px;">5000+</div>
+                    <div style="color: var(--gray);">Registered Donors</div>
+                </div>
+                <div style="text-align: center; padding: var(--spacing-lg); background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);">
+                    <div style="font-size: 3rem; color: var(--primary-red); font-weight: 700; margin-bottom: 8px;">10,000+</div>
+                    <div style="color: var(--gray);">Lives Saved</div>
+                </div>
+                <div style="text-align: center; padding: var(--spacing-lg); background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);">
+                    <div style="font-size: 3rem; color: var(--primary-red); font-weight: 700; margin-bottom: 8px;">50+</div>
+                    <div style="color: var(--gray);">Partner Hospitals</div>
+                </div>
+                <div style="text-align: center; padding: var(--spacing-lg); background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);">
+                    <div style="font-size: 3rem; color: var(--primary-red); font-weight: 700; margin-bottom: 8px;">24/7</div>
+                    <div style="color: var(--gray);">Support Available</div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; padding: var(--spacing-xxl); background: linear-gradient(135deg, #457B9D, #3A6A87); border-radius: var(--radius-lg); color: white;">
+            <h2 style="color: white; margin-bottom: var(--spacing-md);">Join Us in Saving Lives</h2>
+            <p style="font-size: 1.2rem; margin-bottom: var(--spacing-lg); opacity: 0.9;">
+                Every donation counts. Every donor matters. Be a hero today.
+            </p>
+            <a href="{% url 'register' %}" class="btn" style="background: white; color: var(--secondary-blue); padding: 16px 40px;">
+                Register as Donor
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

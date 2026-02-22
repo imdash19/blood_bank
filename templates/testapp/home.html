@@ -1,0 +1,196 @@
+{% extends 'testapp/base.html' %}
+
+{% block title %}Home - Blood Bank Management System{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    Donate Blood,<br>
+                    <span class="highlight">Save Lives</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Your blood donation can save up to three lives. Join thousands of heroes who are making a difference every day.
+                </p>
+                <div class="hero-buttons">
+                    <a href="{% url 'register' %}" class="btn btn-primary">Become a Donor</a>
+                    <a href="{% url 'create_blood_request' %}" class="btn btn-outline">Request Blood</a>
+                </div>
+            </div>
+
+            <div class="hero-illustration">
+                <!-- Medical Illustration SVG -->
+                <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Blood Drop -->
+                    <path d="M250 100 C 200 150 150 200 150 260 C 150 320 190 360 250 360 C 310 360 350 320 350 260 C 350 200 300 150 250 100 Z" fill="#E63946" opacity="0.9"/>
+                    <circle cx="230" cy="240" r="15" fill="#FFFFFF" opacity="0.3"/>
+
+                    <!-- Heart Monitor Line -->
+                    <path d="M 50 450 L 100 450 L 120 420 L 140 480 L 160 400 L 180 450 L 450 450"
+                          stroke="#457B9D" stroke-width="3" fill="none" opacity="0.6"/>
+
+                    <!-- Plus Symbol -->
+                    <rect x="400" y="100" width="50" height="10" fill="#1D9EA6" rx="5"/>
+                    <rect x="420" y="80" width="10" height="50" fill="#1D9EA6" rx="5"/>
+
+                    <!-- Stethoscope -->
+                    <ellipse cx="100" cy="150" rx="25" ry="25" fill="none" stroke="#457B9D" stroke-width="3"/>
+                    <path d="M 100 175 Q 100 250 150 300" stroke="#457B9D" stroke-width="3" fill="none"/>
+                    <ellipse cx="150" cy="310" rx="15" ry="15" fill="#457B9D"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="section" style="background: var(--off-white);">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" data-target="{{ stats.total_donors }}">0</div>
+                <div class="stat-label">Active Donors</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="{{ stats.blood_units }}">0</div>
+                <div class="stat-label">Blood Units Available</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="{{ stats.requests_fulfilled }}">0</div>
+                <div class="stat-label">Lives Saved</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="{{ stats.active_requests }}">0</div>
+                <div class="stat-label">Pending Requests</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blood Stock Section -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Current Blood Stock</h2>
+            <p>Check availability of blood groups in our blood bank</p>
+        </div>
+
+        <div class="blood-stock-grid">
+            {% for stock in blood_stocks %}
+            <div class="blood-stock-card">
+                <div class="blood-group">{{ stock.blood_group }}</div>
+                <div class="blood-units">{{ stock.units_available }} Units</div>
+                <span class="blood-status {{ stock.status }}">
+                    {% if stock.status == 'sufficient' %}
+                        ✓ Available
+                    {% elif stock.status == 'low' %}
+                        ⚠ Low Stock
+                    {% else %}
+                        ✗ Critical
+                    {% endif %}
+                </span>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div style="text-align: center; margin-top: var(--spacing-xl);">
+            <a href="{% url 'create_blood_request' %}" class="btn btn-primary">Request Blood Now</a>
+        </div>
+    </div>
+</section>
+
+<!-- Why Donate Section -->
+<section class="section" style="background: var(--off-white);">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Why Donate Blood?</h2>
+            <p>Every donation makes a real difference</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--spacing-lg);">
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <h3 class="card-title">Save Lives</h3>
+                <p class="card-text">
+                    One blood donation can save up to three lives. Your contribution directly impacts patients in need of transfusions.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <h3 class="card-title">Health Benefits</h3>
+                <p class="card-text">
+                    Regular blood donation helps maintain healthy iron levels and may reduce the risk of heart disease.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <h3 class="card-title">Community Impact</h3>
+                <p class="card-text">
+                    Join a community of heroes making a difference. Your donation helps accident victims, surgery patients, and more.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">How It Works</h2>
+            <p>Simple steps to become a life saver</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-xl);">
+            <div style="text-align: center;">
+                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #E63946, #FF6B75); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 700; margin: 0 auto var(--spacing-md);">1</div>
+                <h3>Register</h3>
+                <p>Sign up as a donor with your basic information and blood group</p>
+            </div>
+
+            <div style="text-align: center;">
+                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #E63946, #FF6B75); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 700; margin: 0 auto var(--spacing-md);">2</div>
+                <h3>Get Matched</h3>
+                <p>We'll notify you when someone needs your blood type</p>
+            </div>
+
+            <div style="text-align: center;">
+                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #E63946, #FF6B75); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 700; margin: 0 auto var(--spacing-md);">3</div>
+                <h3>Donate</h3>
+                <p>Visit the nearest donation center and save lives</p>
+            </div>
+
+            <div style="text-align: center;">
+                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #E63946, #FF6B75); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 700; margin: 0 auto var(--spacing-md);">4</div>
+                <h3>Track Impact</h3>
+                <p>See how many lives you've helped save through your donations</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="section" style="background: linear-gradient(135deg, #E63946 0%, #C5303A 100%); color: white; text-align: center;">
+    <div class="container">
+        <h2 style="color: white; font-size: 2.5rem; margin-bottom: var(--spacing-md);">Ready to Save Lives?</h2>
+        <p style="font-size: 1.25rem; color: rgba(255, 255, 255, 0.9); margin-bottom: var(--spacing-lg); max-width: 700px; margin-left: auto; margin-right: auto;">
+            Join thousands of donors who are making a difference every day. Your blood donation can save up to three lives.
+        </p>
+        <div style="display: flex; gap: var(--spacing-md); justify-content: center; flex-wrap: wrap;">
+            <a href="{% url 'register' %}" class="btn" style="background: white; color: var(--primary-red); padding: 16px 40px;">Register as Donor</a>
+            <a href="{% url 'create_blood_request' %}" class="btn" style="background: transparent; color: white; border: 2px solid white; padding: 16px 40px;">Request Blood</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

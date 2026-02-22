@@ -1,0 +1,210 @@
+{% extends 'testapp/base.html' %}
+{% load math_filters %}
+
+{% block title %}Manage Requests - Blood Bank Management System{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top: 100px; background: var(--off-white); min-height: 100vh;">
+    <div class="container">
+        <div style="margin-bottom: var(--spacing-xl);">
+            <h1><i class="fas fa-list-alt"></i> Manage Blood Requests</h1>
+            <p style="color: var(--gray); font-size: 1.1rem;">
+                Review and manage all blood requests
+            </p>
+        </div>
+        
+        <!-- Filter by Status -->
+        <div class="card" style="padding: var(--spacing-lg); margin-bottom: var(--spacing-lg);">
+            <div style="display: flex; gap: var(--spacing-md); flex-wrap: wrap;">
+                <a href="{% url 'manage_requests' %}" 
+                   class="btn {% if not request.GET.status %}btn-primary{% else %}btn-outline{% endif %}"
+                   style="padding: 10px 20px;">
+                    <i class="fas fa-list"></i> All Requests
+                </a>
+                <a href="?status=pending" 
+                   class="btn {% if request.GET.status == 'pending' %}btn-primary{% else %}btn-outline{% endif %}"
+                   style="padding: 10px 20px;">
+                    <i class="fas fa-clock"></i> Pending
+                </a>
+                <a href="?status=approved" 
+                   class="btn {% if request.GET.status == 'approved' %}btn-primary{% else %}btn-outline{% endif %}"
+                   style="padding: 10px 20px;">
+                    <i class="fas fa-check"></i> Approved
+                </a>
+                <a href="?status=fulfilled" 
+                   class="btn {% if request.GET.status == 'fulfilled' %}btn-primary{% else %}btn-outline{% endif %}"
+                   style="padding: 10px 20px;">
+                    <i class="fas fa-check-double"></i> Fulfilled
+                </a>
+                <a href="?status=rejected" 
+                   class="btn {% if request.GET.status == 'rejected' %}btn-primary{% else %}btn-outline{% endif %}"
+                   style="padding: 10px 20px;">
+                    <i class="fas fa-times"></i> Rejected
+                </a>
+            </div>
+        </div>
+        
+        <!-- Requests List -->
+        {% if requests %}
+        <div style="display: grid; gap: var(--spacing-md);">
+            {% for blood_request in requests %}
+            <div class="card" style="padding: var(--spacing-lg);">
+                <div style="display: grid; grid-template-columns: auto 1fr auto; gap: var(--spacing-lg); align-items: start;">
+                    <!-- Urgency Badge -->
+                    <div style="width: 80px; height: 80px; background: {% if blood_request.urgency == 'critical' %}linear-gradient(135deg, #DC3545, #C82333){% elif blood_request.urgency == 'urgent' %}linear-gradient(135deg, #FFC107, #E0A800){% else %}linear-gradient(135deg, #17A2B8, #138496){% endif %}; color: white; border-radius: var(--radius-md); display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: var(--shadow-md);">
+                        <div style="font-size: 1.5rem; font-weight: 700;">
+                            {% if blood_request.urgency == 'critical' %}🚨
+                            {% elif blood_request.urgency == 'urgent' %}⚠️
+                            {% else %}📋{% endif %}
+                        </div>
+                        <div style="font-size: 0.75rem; opacity: 0.9; text-transform: uppercase; margin-top: 4px;">
+                            {{ blood_request.urgency }}
+                        </div>
+                    </div>
+                    
+                    <!-- Request Details -->
+                    <div>
+                        <div style="display: flex; gap: var(--spacing-md); align-items: start; margin-bottom: var(--spacing-sm);">
+                            <h3 style="margin: 0;">{{ blood_request.patient_name }}</h3>
+                            <span class="badge {% if blood_request.status == 'fulfilled' %}badge-success{% elif blood_request.status == 'pending' %}badge-warning{% elif blood_request.status == 'approved' %}badge-info{% else %}badge-danger{% endif %}">
+                                {{ blood_request.get_status_display }}
+                            </span>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-sm) var(--spacing-lg); color: var(--gray); margin-bottom: var(--spacing-md);">
+                            <div>
+                                <i class="fas fa-fingerprint"></i> <strong>Request ID:</strong> {{ blood_request.request_id }}
+                            </div>
+                            <div>
+                                <i class="fas fa-tint"></i> <strong>Blood Group:</strong> 
+                                <span style="color: var(--primary-red); font-weight: 700;">{{ blood_request.blood_group }}</span> 
+                                ({{ blood_request.units_required }} units)
+                            </div>
+                            <div>
+                                <i class="fas fa-hospital"></i> <strong>Hospital:</strong> {{ blood_request.hospital_name }}
+                            </div>
+                            <div>
+                                <i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> {{ blood_request.city }}
+                            </div>
+                            <div>
+                                <i class="fas fa-user"></i> <strong>Requester:</strong> {{ blood_request.requester_name }}
+                            </div>
+                            <div>
+                                <i class="fas fa-phone"></i> <strong>Contact:</strong> {{ blood_request.requester_phone }}
+                            </div>
+                            <div>
+                                <i class="fas fa-calendar"></i> <strong>Requested:</strong> {{ blood_request.created_at|date:"M d, Y H:i" }}
+                            </div>
+                            <div>
+                                <i class="fas fa-clock"></i> <strong>Time Ago:</strong> {{ blood_request.created_at|timesince }}
+                            </div>
+                        </div>
+                        
+                        <div style="background: var(--off-white); padding: var(--spacing-sm); border-radius: var(--radius-sm); margin-bottom: var(--spacing-sm);">
+                            <strong style="color: var(--dark-gray);">Reason:</strong><br>
+                            <span style="color: var(--gray);">{{ blood_request.reason }}</span>
+                        </div>
+                        
+                        {% if blood_request.admin_notes %}
+                        <div style="background: #D1ECF1; padding: var(--spacing-sm); border-radius: var(--radius-sm); border-left: 3px solid var(--info);">
+                            <strong style="color: var(--info);">Admin Notes:</strong><br>
+                            <span style="color: #0C5460;">{{ blood_request.admin_notes }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Actions -->
+                    <div>
+                        <form method="POST" action="{% url 'update_request_status' blood_request.id %}">
+                            {% csrf_token %}
+                            
+                            <div class="form-group" style="margin-bottom: var(--spacing-sm);">
+                                <label for="status_{{ blood_request.id }}" class="form-label" style="font-size: 0.9rem;">Update Status</label>
+                                <select id="status_{{ blood_request.id }}" 
+                                        name="status" 
+                                        class="form-control" 
+                                        style="font-size: 0.9rem;">
+                                    <option value="pending" {% if blood_request.status == 'pending' %}selected{% endif %}>Pending</option>
+                                    <option value="approved" {% if blood_request.status == 'approved' %}selected{% endif %}>Approved</option>
+                                    <option value="fulfilled" {% if blood_request.status == 'fulfilled' %}selected{% endif %}>Fulfilled</option>
+                                    <option value="rejected" {% if blood_request.status == 'rejected' %}selected{% endif %}>Rejected</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group" style="margin-bottom: var(--spacing-sm);">
+                                <label for="admin_notes_{{ blood_request.id }}" class="form-label" style="font-size: 0.9rem;">Notes</label>
+                                <textarea id="admin_notes_{{ blood_request.id }}" 
+                                          name="admin_notes" 
+                                          class="form-control" 
+                                          rows="3"
+                                          style="font-size: 0.9rem;"
+                                          placeholder="Add notes...">{{ blood_request.admin_notes }}</textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 10px; font-size: 0.9rem;">
+                                <i class="fas fa-save"></i> Update
+                            </button>
+                        </form>
+                        
+                        <a href="tel:{{ blood_request.requester_phone }}" 
+                           class="btn btn-outline" 
+                           style="width: 100%; margin-top: var(--spacing-sm); padding: 10px; font-size: 0.9rem;">
+                            <i class="fas fa-phone"></i> Call Requester
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Pagination -->
+        {% if requests.has_other_pages %}
+        <div style="margin-top: var(--spacing-lg); text-align: center;">
+            <div style="display: inline-flex; gap: var(--spacing-sm); align-items: center;">
+                {% if requests.has_previous %}
+                <a href="?page=1{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}" 
+                   class="btn btn-outline">
+                    <i class="fas fa-angle-double-left"></i>
+                </a>
+                <a href="?page={{ requests.previous_page_number }}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}" 
+                   class="btn btn-outline">
+                    <i class="fas fa-angle-left"></i>
+                </a>
+                {% endif %}
+                
+                <span style="padding: 0 var(--spacing-md);">
+                    Page {{ requests.number }} of {{ requests.paginator.num_pages }}
+                </span>
+                
+                {% if requests.has_next %}
+                <a href="?page={{ requests.next_page_number }}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}" 
+                   class="btn btn-outline">
+                    <i class="fas fa-angle-right"></i>
+                </a>
+                <a href="?page={{ requests.paginator.num_pages }}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}" 
+                   class="btn btn-outline">
+                    <i class="fas fa-angle-double-right"></i>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        
+        {% else %}
+        <div class="card" style="padding: var(--spacing-xxl); text-align: center;">
+            <div style="font-size: 4rem; color: var(--gray); margin-bottom: var(--spacing-md);">
+                <i class="fas fa-list-alt"></i>
+            </div>
+            <h3>No Requests Found</h3>
+            <p style="color: var(--gray);">
+                {% if request.GET.status %}
+                No requests with status "{{ request.GET.status }}".
+                {% else %}
+                No blood requests yet.
+                {% endif %}
+            </p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

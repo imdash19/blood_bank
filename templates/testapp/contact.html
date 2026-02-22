@@ -1,0 +1,151 @@
+{% extends 'testapp/base.html' %}
+
+{% block title %}Contact Us - Blood Bank Management System{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top: 100px; background: var(--off-white); min-height: 100vh;">
+    <div class="container">
+        <div style="text-align: center; margin-bottom: var(--spacing-xxl);">
+            <h1>Get in Touch</h1>
+            <p style="font-size: 1.2rem; color: var(--gray);">
+                Have questions? We're here to help 24/7
+            </p>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-xl); max-width: 1000px; margin: 0 auto;">
+            <!-- Contact Form -->
+            <div class="card" style="padding: var(--spacing-xl);">
+                <h2 style="margin-bottom: var(--spacing-lg);">Send Us a Message</h2>
+                
+                <form method="POST" data-validate="true">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label for="name" class="form-label">Your Name *</label>
+                        <input type="text" 
+                               id="name" 
+                               name="name" 
+                               class="form-control" 
+                               placeholder="Enter your full name" 
+                               required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address *</label>
+                        <input type="email" 
+                               id="email" 
+                               name="email" 
+                               class="form-control" 
+                               placeholder="your.email@example.com" 
+                               required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" 
+                               id="phone" 
+                               name="phone" 
+                               class="form-control" 
+                               placeholder="+91 98765 43210">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject" class="form-label">Subject *</label>
+                        <input type="text" 
+                               id="subject" 
+                               name="subject" 
+                               class="form-control" 
+                               placeholder="What is this regarding?" 
+                               required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" class="form-label">Message *</label>
+                        <textarea id="message" 
+                                  name="message" 
+                                  class="form-control" 
+                                  placeholder="Tell us how we can help you..."
+                                  style="min-height: 150px;"
+                                  required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px;">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Contact Information -->
+            <div>
+                <div class="card" style="padding: var(--spacing-xl); margin-bottom: var(--spacing-lg); background: linear-gradient(135deg, #E63946, #C5303A); color: white;">
+                    <h3 style="color: white; margin-bottom: var(--spacing-md);">
+                        <i class="fas fa-phone"></i> Emergency Hotline
+                    </h3>
+                    <p style="font-size: 2rem; font-weight: 700; margin-bottom: 8px;">+91 123 456 7890</p>
+                    <p style="opacity: 0.9;">Available 24/7 for urgent blood requirements</p>
+                </div>
+                
+                <div class="card" style="padding: var(--spacing-lg); margin-bottom: var(--spacing-lg);">
+                    <h3 style="margin-bottom: var(--spacing-md);">
+                        <i class="fas fa-map-marker-alt" style="color: var(--primary-red);"></i> Our Office
+                    </h3>
+                    <p style="color: var(--gray); line-height: 1.8;">
+                        123 Medical Plaza<br>
+                        Healthcare District<br>
+                        Mumbai, Maharashtra 400001<br>
+                        India
+                    </p>
+                </div>
+                
+                <div class="card" style="padding: var(--spacing-lg); margin-bottom: var(--spacing-lg);">
+                    <h3 style="margin-bottom: var(--spacing-md);">
+                        <i class="fas fa-clock" style="color: var(--primary-red);"></i> Office Hours
+                    </h3>
+                    <p style="color: var(--gray); line-height: 1.8;">
+                        Monday - Friday: 9:00 AM - 6:00 PM<br>
+                        Saturday: 9:00 AM - 2:00 PM<br>
+                        Sunday: Closed<br>
+                        <strong>Emergency: 24/7</strong>
+                    </p>
+                </div>
+                
+                <div class="card" style="padding: var(--spacing-lg);">
+                    <h3 style="margin-bottom: var(--spacing-md);">
+                        <i class="fas fa-envelope" style="color: var(--primary-red);"></i> Email Us
+                    </h3>
+                    <p style="color: var(--gray); line-height: 1.8;">
+                        General Inquiries:<br>
+                        <a href="mailto:info@lifeblood.com">info@lifeblood.com</a><br><br>
+                        Donor Support:<br>
+                        <a href="mailto:donors@lifeblood.com">donors@lifeblood.com</a><br><br>
+                        Hospital Coordination:<br>
+                        <a href="mailto:hospitals@lifeblood.com">hospitals@lifeblood.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Social Media -->
+        <div style="text-align: center; margin-top: var(--spacing-xxl); padding: var(--spacing-xl); background: white; border-radius: var(--radius-lg);">
+            <h3 style="margin-bottom: var(--spacing-md);">Connect With Us</h3>
+            <p style="color: var(--gray); margin-bottom: var(--spacing-lg);">
+                Follow us on social media for updates on donation drives and health tips
+            </p>
+            <div style="display: flex; gap: var(--spacing-md); justify-content: center; flex-wrap: wrap;">
+                <a href="#" class="btn btn-outline" style="padding: 12px 24px;">
+                    <i class="fab fa-facebook"></i> Facebook
+                </a>
+                <a href="#" class="btn btn-outline" style="padding: 12px 24px;">
+                    <i class="fab fa-twitter"></i> Twitter
+                </a>
+                <a href="#" class="btn btn-outline" style="padding: 12px 24px;">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+                <a href="#" class="btn btn-outline" style="padding: 12px 24px;">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

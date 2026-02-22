@@ -1,0 +1,202 @@
+{% extends 'testapp/base.html' %}
+
+{% block title %}Search Donors - Blood Bank Management System{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top: 100px; background: var(--off-white); min-height: 100vh;">
+    <div class="container">
+        <div style="text-align: center; margin-bottom: var(--spacing-xl);">
+            <h1><i class="fas fa-search"></i> Find Blood Donors</h1>
+            <p style="font-size: 1.2rem; color: var(--gray);">
+                Search for available blood donors in your area
+            </p>
+        </div>
+        
+        <!-- Search Form -->
+        <div class="card" style="padding: var(--spacing-lg); margin-bottom: var(--spacing-lg);">
+            <form method="GET" style="display: grid; grid-template-columns: 1fr 1fr auto; gap: var(--spacing-md); align-items: end;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label for="blood_group" class="form-label">Blood Group</label>
+                    <select id="blood_group" 
+                            name="blood_group" 
+                            class="form-control">
+                        <option value="">All Blood Groups</option>
+                        {% for bg in blood_groups %}
+                        <option value="{{ bg.0 }}" {% if request.GET.blood_group == bg.0 %}selected{% endif %}>{{ bg.1 }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" 
+                           id="city" 
+                           name="city" 
+                           class="form-control" 
+                           placeholder="Enter city"
+                           value="{{ request.GET.city }}">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </form>
+        </div>
+        
+        <!-- Results Summary -->
+        {% if donors %}
+        <div style="background: #D4EDDA; padding: var(--spacing-md); border-radius: var(--radius-md); margin-bottom: var(--spacing-lg); border-left: 4px solid var(--success);">
+            <strong><i class="fas fa-check-circle"></i> Found {{ donors.count }} available donor{% if donors.count != 1 %}s{% endif %}</strong>
+            {% if request.GET.blood_group %}
+            for blood group <strong>{{ request.GET.blood_group }}</strong>
+            {% endif %}
+            {% if request.GET.city %}
+            in <strong>{{ request.GET.city }}</strong>
+            {% endif %}
+        </div>
+        {% endif %}
+        
+        <!-- Donors List -->
+        {% if donors %}
+        <div style="display: grid; gap: var(--spacing-md);">
+            {% for donor in donors %}
+            <div class="card" style="padding: var(--spacing-lg);">
+                <div style="display: grid; grid-template-columns: auto 1fr auto; gap: var(--spacing-lg); align-items: center;">
+                    <!-- Blood Group Badge -->
+                    <div style="width: 100px; height: 100px; background: linear-gradient(135deg, var(--primary-red), var(--primary-red-dark)); color: white; border-radius: var(--radius-md); display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: var(--shadow-md);">
+                        <div style="font-size: 2rem; font-weight: 700;">{{ donor.blood_group }}</div>
+                        <div style="font-size: 0.85rem; opacity: 0.9;">Blood Group</div>
+                    </div>
+                    
+                    <!-- Donor Information -->
+                    <div>
+                        <h3 style="margin-bottom: var(--spacing-xs);">{{ donor.user.get_full_name|default:donor.user.username }}</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-sm); color: var(--gray);">
+                            <div>
+                                <i class="fas fa-venus-mars"></i> {{ donor.get_gender_display }}
+                            </div>
+                            <div>
+                                <i class="fas fa-birthday-cake"></i> {{ donor.age }} years old
+                            </div>
+                            <div>
+                                <i class="fas fa-weight"></i> {{ donor.weight }} kg
+                            </div>
+                            <div>
+                                <i class="fas fa-map-marker-alt"></i> {{ donor.user.profile.city|default:"Not specified" }}
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: var(--spacing-sm);">
+                            <span class="badge badge-success">
+                                <i class="fas fa-check-circle"></i> Available
+                            </span>
+                            <span class="badge badge-info">
+                                <i class="fas fa-tint"></i> {{ donor.total_donations }} donation{% if donor.total_donations != 1 %}s{% endif %}
+                            </span>
+                            {% if donor.last_donation_date %}
+                            <span class="badge badge-secondary">
+                                <i class="fas fa-calendar"></i> Last donated {{ donor.last_donation_date|timesince }} ago
+                            </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Info -->
+                    <div style="text-align: right;">
+                        <div style="margin-bottom: var(--spacing-sm);">
+                            <div style="font-size: 0.9rem; color: var(--gray); margin-bottom: 4px;">Contact</div>
+                            <div style="font-weight: 600;">
+                                <i class="fas fa-phone"></i> {{ donor.user.profile.phone|default:"Not available" }}
+                            </div>
+                        </div>
+                        {% if user.is_authenticated %}
+                        <a href="mailto:{{ donor.user.email }}" class="btn btn-outline" style="padding: 8px 20px;">
+                            <i class="fas fa-envelope"></i> Email
+                        </a>
+                        {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-primary" style="padding: 8px 20px;">
+                            <i class="fas fa-sign-in-alt"></i> Login to Contact
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% elif request.GET.blood_group or request.GET.city %}
+        <!-- No Results -->
+        <div class="card" style="padding: var(--spacing-xxl); text-align: center;">
+            <div style="font-size: 4rem; color: var(--gray); margin-bottom: var(--spacing-md);">
+                <i class="fas fa-search"></i>
+            </div>
+            <h3>No Donors Found</h3>
+            <p style="color: var(--gray); max-width: 600px; margin: 0 auto var(--spacing-lg);">
+                We couldn't find any available donors matching your criteria. Try adjusting your search filters or 
+                <a href="{% url 'create_blood_request' %}" style="color: var(--primary-red); font-weight: 600;">submit a blood request</a> 
+                and we'll notify donors when they become available.
+            </p>
+            <a href="{% url 'search_donors' %}" class="btn btn-primary">
+                <i class="fas fa-redo"></i> Clear Filters
+            </a>
+        </div>
+        
+        {% else %}
+        <!-- Initial State -->
+        <div class="card" style="padding: var(--spacing-xxl); text-align: center;">
+            <div style="font-size: 4rem; color: var(--primary-red); margin-bottom: var(--spacing-md);">
+                🩸
+            </div>
+            <h3>Search for Blood Donors</h3>
+            <p style="color: var(--gray); max-width: 600px; margin: 0 auto;">
+                Use the search form above to find available blood donors by blood group and location.
+            </p>
+        </div>
+        {% endif %}
+        
+        <!-- Blood Compatibility Info -->
+        <div class="card" style="margin-top: var(--spacing-lg); padding: var(--spacing-xl); background: linear-gradient(135deg, #457B9D, #3A6A87); color: white;">
+            <h3 style="color: white; text-align: center; margin-bottom: var(--spacing-lg);">
+                <i class="fas fa-info-circle"></i> Blood Compatibility Chart
+            </h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-md);">
+                <div style="background: rgba(255, 255, 255, 0.1); padding: var(--spacing-md); border-radius: var(--radius-sm);">
+                    <strong>A+</strong> can receive from: A+, A-, O+, O-
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.1); padding: var(--spacing-md); border-radius: var(--radius-sm);">
+                    <strong>A-</strong> can receive from: A-, O-
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.1); padding: var(--spacing-md); border-radius: var(--radius-sm);">
+                    <strong>B+</strong> can receive from: B+, B-, O+, O-
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.1); padding: var(--spacing-md); border-radius: var(--radius-sm);">
+                    <strong>B-</strong> can receive from: B-, O-
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.1); padding: var(--spacing-md); border-radius: var(--radius-sm);">
+                    <strong>AB+</strong> (Universal Recipient): All types
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.1); padding: var(--spacing-md); border-radius: var(--radius-sm);">
+                    <strong>AB-</strong> can receive from: AB-, A-, B-, O-
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.1); padding: var(--spacing-md); border-radius: var(--radius-sm);">
+                    <strong>O+</strong> can receive from: O+, O-
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.1); padding: var(--spacing-md); border-radius: var(--radius-sm);">
+                    <strong>O-</strong> (Universal Donor): O- only
+                </div>
+            </div>
+        </div>
+        
+        <!-- Call to Action -->
+        <div style="text-align: center; margin-top: var(--spacing-lg); padding: var(--spacing-xl); background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);">
+            <h3 style="margin-bottom: var(--spacing-md);">Can't Find a Donor?</h3>
+            <p style="color: var(--gray); margin-bottom: var(--spacing-lg);">
+                Submit a blood request and we'll help match you with available donors
+            </p>
+            <a href="{% url 'create_blood_request' %}" class="btn btn-primary" style="padding: 14px 32px;">
+                <i class="fas fa-plus-circle"></i> Request Blood
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

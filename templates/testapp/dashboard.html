@@ -1,0 +1,197 @@
+{% extends 'testapp/base.html' %}
+{% load math_filters %}
+
+{% block title %}Donor Dashboard - Blood Bank Management System{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top: 100px; background: var(--off-white); min-height: 100vh;">
+    <div class="container">
+        <div style="margin-bottom: var(--spacing-xl);">
+            <h1>Welcome, {{ user.get_full_name|default:user.username }}! 👋</h1>
+            <p style="color: var(--gray); font-size: 1.1rem;">Thank you for being a life saver</p>
+        </div>
+        
+        <!-- Donor Status Card -->
+        {% if donor %}
+        <div class="card" style="margin-bottom: var(--spacing-lg); background: linear-gradient(135deg, #E63946 0%, #C5303A 100%); color: white;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-lg); align-items: center;">
+                <div>
+                    <div style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 8px;">Blood Group</div>
+                    <div style="font-size: 3rem; font-weight: 700;">{{ donor.blood_group }}</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 8px;">Total Donations</div>
+                    <div style="font-size: 2.5rem; font-weight: 700;">{{ donor.total_donations }}</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 8px;">Lives Saved</div>
+                    <div style="font-size: 2.5rem; font-weight: 700;">{{ donor.total_donations|default:0|add:0|mul:3 }}</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 8px;">Availability</div>
+                    <div>
+                        {% if donor.is_available %}
+                        <span class="badge" style="background: rgba(255, 255, 255, 0.2); color: white; font-size: 1rem; padding: 8px 16px;">
+                            ✓ Available
+                        </span>
+                        {% else %}
+                        <span class="badge" style="background: rgba(255, 255, 255, 0.2); color: white; font-size: 1rem; padding: 8px 16px;">
+                            ✗ Unavailable
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="card" style="margin-bottom: var(--spacing-lg); background: #FFF3CD; border-left: 4px solid var(--warning);">
+            <h3 style="color: #856404; margin-bottom: var(--spacing-sm);">
+                <i class="fas fa-exclamation-triangle"></i> Complete Your Donor Profile
+            </h3>
+            <p style="color: #856404; margin-bottom: var(--spacing-md);">
+                Please complete your donor profile to start saving lives and receive blood request notifications.
+            </p>
+            <a href="{% url 'donor_profile' %}" class="btn btn-warning">
+                <i class="fas fa-user-edit"></i> Complete Profile
+            </a>
+        </div>
+        {% endif %}
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--spacing-lg);">
+            <!-- Quick Actions -->
+            <div class="card">
+                <h3 style="margin-bottom: var(--spacing-md);">
+                    <i class="fas fa-bolt" style="color: var(--primary-red);"></i> Quick Actions
+                </h3>
+                <div style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
+                    <a href="{% url 'donor_profile' %}" class="btn btn-outline" style="width: 100%; text-align: left;">
+                        <i class="fas fa-user-edit"></i> Update Profile
+                    </a>
+                    <a href="{% url 'search_donors' %}" class="btn btn-outline" style="width: 100%; text-align: left;">
+                        <i class="fas fa-search"></i> Find Other Donors
+                    </a>
+                    <a href="{% url 'create_blood_request' %}" class="btn btn-outline" style="width: 100%; text-align: left;">
+                        <i class="fas fa-plus-circle"></i> Request Blood
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Matching Requests -->
+            <div class="card">
+                <h3 style="margin-bottom: var(--spacing-md);">
+                    <i class="fas fa-heart" style="color: var(--primary-red);"></i> Matching Requests
+                    <span class="badge badge-danger" style="float: right;">{{ matching_requests.count }}</span>
+                </h3>
+                {% if matching_requests %}
+                <div style="max-height: 300px; overflow-y: auto;">
+                    {% for request in matching_requests %}
+                    <div style="padding: var(--spacing-sm); background: var(--off-white); border-radius: var(--radius-sm); margin-bottom: var(--spacing-sm);">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 4px;">
+                            <strong>{{ request.patient_name }}</strong>
+                            <span class="badge badge-warning">{{ request.urgency|upper }}</span>
+                        </div>
+                        <div style="font-size: 0.9rem; color: var(--gray);">
+                            <i class="fas fa-map-marker-alt"></i> {{ request.city }}<br>
+                            <i class="fas fa-hospital"></i> {{ request.hospital_name }}<br>
+                            <i class="fas fa-tint"></i> {{ request.units_required }} units needed
+                        </div>
+                        <div style="margin-top: 8px;">
+                            <a href="#" class="btn btn-primary" style="padding: 6px 16px; font-size: 0.9rem;">
+                                <i class="fas fa-hand-holding-heart"></i> Respond
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p style="text-align: center; color: var(--gray); padding: var(--spacing-lg);">
+                    <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--success); display: block; margin-bottom: var(--spacing-sm);"></i>
+                    No matching requests at the moment
+                </p>
+                {% endif %}
+            </div>
+            
+            <!-- Recent Donations -->
+            <div class="card">
+                <h3 style="margin-bottom: var(--spacing-md);">
+                    <i class="fas fa-history" style="color: var(--primary-red);"></i> Recent Donations
+                </h3>
+                {% if donations %}
+                <div style="max-height: 300px; overflow-y: auto;">
+                    {% for donation in donations %}
+                    <div style="padding: var(--spacing-sm); background: var(--off-white); border-radius: var(--radius-sm); margin-bottom: var(--spacing-sm);">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <strong>{{ donation.donation_date }}</strong>
+                                <div style="font-size: 0.9rem; color: var(--gray);">
+                                    {{ donation.donation_center }}
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="color: var(--primary-red); font-weight: 700;">{{ donation.blood_group }}</div>
+                                <div style="font-size: 0.85rem; color: var(--gray);">{{ donation.units_donated }} unit(s)</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p style="text-align: center; color: var(--gray); padding: var(--spacing-lg);">
+                    <i class="fas fa-tint" style="font-size: 3rem; color: var(--primary-red); display: block; margin-bottom: var(--spacing-sm);"></i>
+                    No donation history yet
+                </p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Donation Tips -->
+        <div class="card" style="margin-top: var(--spacing-lg); background: linear-gradient(135deg, #457B9D 0%, #3A6A87 100%); color: white;">
+            <h3 style="color: white; margin-bottom: var(--spacing-md);">
+                <i class="fas fa-lightbulb"></i> Donation Tips
+            </h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-md);">
+                <div>
+                    <strong>Before Donation:</strong>
+                    <ul style="margin-top: 8px; padding-left: 20px;">
+                        <li>Get a good night's sleep</li>
+                        <li>Eat a healthy meal</li>
+                        <li>Drink plenty of water</li>
+                        <li>Bring your ID</li>
+                    </ul>
+                </div>
+                <div>
+                    <strong>During Donation:</strong>
+                    <ul style="margin-top: 8px; padding-left: 20px;">
+                        <li>Relax and stay calm</li>
+                        <li>Pump your fist occasionally</li>
+                        <li>Inform staff of any discomfort</li>
+                        <li>Take your time</li>
+                    </ul>
+                </div>
+                <div>
+                    <strong>After Donation:</strong>
+                    <ul style="margin-top: 8px; padding-left: 20px;">
+                        <li>Rest for 10-15 minutes</li>
+                        <li>Have juice and snacks</li>
+                        <li>Avoid strenuous activity</li>
+                        <li>Drink extra fluids</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Calculate lives saved (simplified: 1 donation = 3 lives)
+document.addEventListener('DOMContentLoaded', function() {
+    const livesSaved = document.querySelector('.lives-saved');
+    if (livesSaved) {
+        const donations = parseInt(livesSaved.dataset.donations || 0);
+        livesSaved.textContent = donations * 3;
+    }
+});
+</script>
+{% endblock %}

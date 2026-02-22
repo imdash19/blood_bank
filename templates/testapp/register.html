@@ -1,0 +1,166 @@
+{% extends 'testapp/base.html' %}
+
+{% block title %}Register - Blood Bank Management System{% endblock %}
+
+{% block content %}
+<section class="section" style="padding-top: 100px; padding-bottom: var(--spacing-xxl);">
+    <div class="container">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="card" style="padding: var(--spacing-xl);">
+                <div style="text-align: center; margin-bottom: var(--spacing-xl);">
+                    <div style="font-size: 4rem; color: var(--primary-red); margin-bottom: var(--spacing-md);">🩸</div>
+                    <h2>Become a Life Saver</h2>
+                    <p style="color: var(--gray);">Join our community of heroes who save lives</p>
+                </div>
+                
+                <form method="POST" data-validate="true">
+                    {% csrf_token %}
+                    
+                    <h3 style="margin-bottom: var(--spacing-md); color: var(--dark-gray); font-size: 1.2rem;">
+                        <i class="fas fa-user"></i> Personal Information
+                    </h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md);">
+                        <div class="form-group">
+                            <label for="first_name" class="form-label">First Name *</label>
+                            <input type="text" 
+                                   id="first_name" 
+                                   name="first_name" 
+                                   class="form-control" 
+                                   placeholder="John" 
+                                   required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="last_name" class="form-label">Last Name *</label>
+                            <input type="text" 
+                                   id="last_name" 
+                                   name="last_name" 
+                                   class="form-control" 
+                                   placeholder="Doe" 
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md);">
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address *</label>
+                            <input type="email" 
+                                   id="email" 
+                                   name="email" 
+                                   class="form-control" 
+                                   placeholder="john.doe@example.com" 
+                                   required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone Number *</label>
+                            <input type="tel" 
+                                   id="phone" 
+                                   name="phone" 
+                                   class="form-control" 
+                                   placeholder="+91 98765 43210" 
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" 
+                               id="address" 
+                               name="address" 
+                               class="form-control" 
+                               placeholder="Street address">
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--spacing-md);">
+                        <div class="form-group">
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" 
+                                   id="city" 
+                                   name="city" 
+                                   class="form-control" 
+                                   placeholder="City">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="state" class="form-label">State</label>
+                            <input type="text" 
+                                   id="state" 
+                                   name="state" 
+                                   class="form-control" 
+                                   placeholder="State">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="pincode" class="form-label">Pincode</label>
+                            <input type="text" 
+                                   id="pincode" 
+                                   name="pincode" 
+                                   class="form-control" 
+                                   placeholder="123456">
+                        </div>
+                    </div>
+                    
+                    <hr style="margin: var(--spacing-lg) 0; border: none; border-top: 2px solid var(--light-gray);">
+                    
+                    <h3 style="margin-bottom: var(--spacing-md); color: var(--dark-gray); font-size: 1.2rem;">
+                        <i class="fas fa-lock"></i> Account Details
+                    </h3>
+                    
+                    <div class="form-group">
+                        <label for="username" class="form-label">Username *</label>
+                        <input type="text" 
+                               id="username" 
+                               name="username" 
+                               class="form-control" 
+                               placeholder="Choose a unique username" 
+                               required>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md);">
+                        <div class="form-group">
+                            <label for="password" class="form-label">Password *</label>
+                            <input type="password" 
+                                   id="password" 
+                                   name="password" 
+                                   class="form-control" 
+                                   placeholder="Minimum 8 characters" 
+                                   required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirm_password" class="form-label">Confirm Password *</label>
+                            <input type="password" 
+                                   id="confirm_password" 
+                                   name="confirm_password" 
+                                   class="form-control" 
+                                   placeholder="Re-enter password" 
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <div style="background: var(--off-white); padding: var(--spacing-md); border-radius: var(--radius-md); margin-bottom: var(--spacing-lg);">
+                        <label style="display: flex; align-items: start; gap: 12px; cursor: pointer;">
+                            <input type="checkbox" name="agree_terms" required style="margin-top: 4px; width: auto;">
+                            <span style="color: var(--gray); font-size: 0.9rem;">
+                                I agree to the <a href="#" style="color: var(--primary-red);">Terms and Conditions</a> 
+                                and <a href="#" style="color: var(--primary-red);">Privacy Policy</a>. 
+                                I understand that my information will be used to connect me with patients in need.
+                            </span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 16px; font-size: 1.1rem;">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                </form>
+                
+                <div style="text-align: center; margin-top: var(--spacing-lg); padding-top: var(--spacing-lg); border-top: 1px solid var(--light-gray);">
+                    <p>Already have an account? <a href="{% url 'login' %}" style="color: var(--primary-red); font-weight: 600;">Login here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
