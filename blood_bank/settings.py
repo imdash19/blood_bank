@@ -19,9 +19,9 @@ STATIC_DIR = BASE_DIR / 'static'
 SECRET_KEY = 'django-insecure-xwdj(e468nd_z@heafh@-z1qn6z179va#hru-6gdq!5)pke#4c'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['bibhu.pythonanywhere.com']
 
 
 # ==============================================================================
@@ -142,7 +142,7 @@ USE_TZ = True
 # ==============================================================================
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # For production ⭐
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # For production ⭐
 STATICFILES_DIRS = [STATIC_DIR]
 
 # WhiteNoise for serving static files ⭐
