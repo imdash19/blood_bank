@@ -209,7 +209,7 @@ def donor_dashboard(request):
         'matching_requests': matching_requests,
         'page': 'dashboard'
     }
-    return render(request, 'testapp/donor_dashboard.html', context)
+    return render(request, 'testapp/dashboard.html', context)
 
 
 @login_required

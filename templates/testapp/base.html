@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href= "{% static 'favicon.png' %}" type="image/x-icon">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     {% block extra_css %}{% endblock %}
 </head>
@@ -120,7 +120,7 @@
     </footer>
 
     <!-- Custom JavaScript -->
-    <script src="/static/js/main.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>

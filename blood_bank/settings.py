@@ -4,6 +4,7 @@ Updated with Django REST Framework support.
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,9 +20,9 @@ STATIC_DIR = BASE_DIR / 'static'
 SECRET_KEY = 'django-insecure-xwdj(e468nd_z@heafh@-z1qn6z179va#hru-6gdq!5)pke#4c'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['bibhu.pythonanywhere.com']
+ALLOWED_HOSTS = ['bibhu.pythonanywhere.com', '*']
 
 
 # ==============================================================================
@@ -141,13 +142,11 @@ USE_TZ = True
 # STATIC FILES (CSS, JavaScript, Images)
 # ==============================================================================
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # For production ⭐
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [STATIC_DIR]
 
-# WhiteNoise for serving static files ⭐
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 
 # ==============================================================================
 # MEDIA FILES (User uploads)

@@ -125,3 +125,391 @@ INFO 2026-02-22 20:49:53,423 basehttp "GET /login/ HTTP/1.1" 200 7585
 INFO 2026-02-22 20:49:56,151 basehttp "GET / HTTP/1.1" 200 13147
 WARNING 2026-02-22 20:50:25,515 log Method Not Allowed: /api/v1/auth/login/
 WARNING 2026-02-22 20:50:25,516 basehttp "GET /api/v1/auth/login/ HTTP/1.1" 405 40
+INFO 2026-03-01 11:28:19,770 autoreload Watching for file changes with StatReloader
+ERROR 2026-03-01 11:28:25,688 log Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2026-03-01 11:28:26,177 basehttp "GET / HTTP/1.1" 400 143
+ERROR 2026-03-01 11:28:26,512 log Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2026-03-01 11:28:26,581 basehttp "GET /favicon.ico HTTP/1.1" 400 143
+INFO 2026-03-01 11:28:49,856 autoreload Watching for file changes with StatReloader
+ERROR 2026-03-01 11:28:53,734 log Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2026-03-01 11:28:53,860 basehttp "GET / HTTP/1.1" 400 143
+ERROR 2026-03-01 11:28:53,978 log Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2026-03-01 11:28:53,997 basehttp "GET /favicon.ico HTTP/1.1" 400 143
+ERROR 2026-03-01 11:28:55,582 log Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2026-03-01 11:28:55,617 basehttp "GET / HTTP/1.1" 400 143
+ERROR 2026-03-01 11:28:55,679 log Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2026-03-01 11:28:55,697 basehttp "GET /favicon.ico HTTP/1.1" 400 143
+ERROR 2026-03-01 11:28:56,162 log Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2026-03-01 11:28:56,211 basehttp "GET / HTTP/1.1" 400 143
+ERROR 2026-03-01 11:28:56,269 log Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2026-03-01 11:28:56,284 basehttp "GET /favicon.ico HTTP/1.1" 400 143
+ERROR 2026-03-01 11:28:56,312 log Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2026-03-01 11:28:56,331 basehttp "GET / HTTP/1.1" 400 143
+ERROR 2026-03-01 11:28:56,378 log Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2026-03-01 11:28:56,396 basehttp "GET /favicon.ico HTTP/1.1" 400 143
+ERROR 2026-03-01 11:28:56,457 log Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2026-03-01 11:28:56,479 basehttp "GET / HTTP/1.1" 400 143
+ERROR 2026-03-01 11:28:56,520 log Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2026-03-01 11:28:56,535 basehttp "GET /favicon.ico HTTP/1.1" 400 143
+ERROR 2026-03-01 11:28:56,630 log Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2026-03-01 11:28:56,653 basehttp "GET / HTTP/1.1" 400 143
+ERROR 2026-03-01 11:28:56,697 log Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2026-03-01 11:28:56,717 basehttp "GET /favicon.ico HTTP/1.1" 400 143
+ERROR 2026-03-01 11:28:56,779 log Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2026-03-01 11:28:56,793 basehttp "GET / HTTP/1.1" 400 143
+ERROR 2026-03-01 11:28:56,845 log Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2026-03-01 11:28:56,865 basehttp "GET /favicon.ico HTTP/1.1" 400 143
+ERROR 2026-03-01 11:28:56,920 log Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2026-03-01 11:28:56,958 basehttp "GET / HTTP/1.1" 400 143
+ERROR 2026-03-01 11:28:56,985 log Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2026-03-01 11:28:57,002 basehttp "GET /favicon.ico HTTP/1.1" 400 143
+ERROR 2026-03-01 11:28:57,066 log Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2026-03-01 11:28:57,082 basehttp "GET / HTTP/1.1" 400 143
+ERROR 2026-03-01 11:28:57,131 log Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2026-03-01 11:28:57,149 basehttp "GET /favicon.ico HTTP/1.1" 400 143
+ERROR 2026-03-01 11:28:57,216 log Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2026-03-01 11:28:57,237 basehttp "GET / HTTP/1.1" 400 143
+ERROR 2026-03-01 11:28:57,266 log Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+WARNING 2026-03-01 11:28:57,281 basehttp "GET /favicon.ico HTTP/1.1" 400 143
+INFO 2026-03-01 11:31:22,762 autoreload C:\Users\bibhu\Blood Bank Management System\blood_bank\blood_bank\settings.py changed, reloading.
+INFO 2026-03-01 11:31:23,619 autoreload Watching for file changes with StatReloader
+INFO 2026-03-01 11:31:27,180 basehttp "GET / HTTP/1.1" 200 13147
+WARNING 2026-03-01 11:31:27,398 log Not Found: /static/css/style.css
+WARNING 2026-03-01 11:31:27,399 basehttp "GET /static/css/style.css HTTP/1.1" 404 179
+WARNING 2026-03-01 11:31:27,411 log Not Found: /static/js/main.js
+WARNING 2026-03-01 11:31:27,412 basehttp "GET /static/js/main.js HTTP/1.1" 404 179
+WARNING 2026-03-01 11:31:27,578 log Not Found: /static/favicon.png
+WARNING 2026-03-01 11:31:27,579 basehttp "GET /static/favicon.png HTTP/1.1" 404 179
+INFO 2026-03-01 11:31:30,297 basehttp "GET / HTTP/1.1" 200 13147
+WARNING 2026-03-01 11:31:30,366 log Not Found: /static/css/style.css
+WARNING 2026-03-01 11:31:30,367 basehttp "GET /static/css/style.css HTTP/1.1" 404 179
+WARNING 2026-03-01 11:31:30,370 log Not Found: /static/js/main.js
+WARNING 2026-03-01 11:31:30,371 basehttp "GET /static/js/main.js HTTP/1.1" 404 179
+WARNING 2026-03-01 11:31:30,717 log Not Found: /static/favicon.png
+WARNING 2026-03-01 11:31:30,719 basehttp "GET /static/favicon.png HTTP/1.1" 404 179
+INFO 2026-03-01 11:31:31,601 basehttp "GET / HTTP/1.1" 200 13147
+WARNING 2026-03-01 11:31:31,682 log Not Found: /static/css/style.css
+WARNING 2026-03-01 11:31:31,683 basehttp "GET /static/css/style.css HTTP/1.1" 404 179
+WARNING 2026-03-01 11:31:31,686 log Not Found: /static/js/main.js
+WARNING 2026-03-01 11:31:31,687 basehttp "GET /static/js/main.js HTTP/1.1" 404 179
+INFO 2026-03-01 11:31:31,764 basehttp "GET / HTTP/1.1" 200 13147
+WARNING 2026-03-01 11:31:31,808 log Not Found: /static/css/style.css
+WARNING 2026-03-01 11:31:31,809 basehttp "GET /static/css/style.css HTTP/1.1" 404 179
+WARNING 2026-03-01 11:31:31,810 log Not Found: /static/js/main.js
+WARNING 2026-03-01 11:31:31,810 basehttp "GET /static/js/main.js HTTP/1.1" 404 179
+INFO 2026-03-01 11:31:31,912 basehttp "GET / HTTP/1.1" 200 13147
+WARNING 2026-03-01 11:31:32,263 log Not Found: /static/css/style.css
+WARNING 2026-03-01 11:31:32,264 basehttp "GET /static/css/style.css HTTP/1.1" 404 179
+WARNING 2026-03-01 11:31:32,265 log Not Found: /static/js/main.js
+WARNING 2026-03-01 11:31:32,266 basehttp "GET /static/js/main.js HTTP/1.1" 404 179
+WARNING 2026-03-01 11:31:32,360 log Not Found: /static/favicon.png
+WARNING 2026-03-01 11:31:32,361 basehttp "GET /static/favicon.png HTTP/1.1" 404 179
+INFO 2026-03-01 11:31:38,707 basehttp "GET / HTTP/1.1" 200 13147
+WARNING 2026-03-01 11:31:38,760 log Not Found: /static/css/style.css
+WARNING 2026-03-01 11:31:38,761 basehttp "GET /static/css/style.css HTTP/1.1" 404 179
+WARNING 2026-03-01 11:31:38,768 log Not Found: /static/js/main.js
+WARNING 2026-03-01 11:31:38,769 basehttp "GET /static/js/main.js HTTP/1.1" 404 179
+INFO 2026-03-01 11:32:46,761 basehttp "GET / HTTP/1.1" 200 13147
+WARNING 2026-03-01 11:32:46,794 log Not Found: /static/css/style.css
+WARNING 2026-03-01 11:32:46,795 basehttp "GET /static/css/style.css HTTP/1.1" 404 179
+WARNING 2026-03-01 11:32:46,796 log Not Found: /static/js/main.js
+WARNING 2026-03-01 11:32:46,796 basehttp "GET /static/js/main.js HTTP/1.1" 404 179
+INFO 2026-03-01 11:32:46,909 basehttp "GET / HTTP/1.1" 200 13147
+WARNING 2026-03-01 11:32:46,970 log Not Found: /static/css/style.css
+WARNING 2026-03-01 11:32:46,971 basehttp "GET /static/css/style.css HTTP/1.1" 404 179
+WARNING 2026-03-01 11:32:46,982 log Not Found: /static/js/main.js
+WARNING 2026-03-01 11:32:46,983 basehttp "GET /static/js/main.js HTTP/1.1" 404 179
+INFO 2026-03-01 11:32:47,096 basehttp "GET / HTTP/1.1" 200 13147
+WARNING 2026-03-01 11:32:47,134 log Not Found: /static/css/style.css
+WARNING 2026-03-01 11:32:47,135 basehttp "GET /static/css/style.css HTTP/1.1" 404 179
+WARNING 2026-03-01 11:32:47,137 log Not Found: /static/js/main.js
+WARNING 2026-03-01 11:32:47,137 basehttp "GET /static/js/main.js HTTP/1.1" 404 179
+WARNING 2026-03-01 11:32:47,409 log Not Found: /static/favicon.png
+WARNING 2026-03-01 11:32:47,410 basehttp "GET /static/favicon.png HTTP/1.1" 404 179
+INFO 2026-03-01 11:33:54,388 autoreload C:\Users\bibhu\Blood Bank Management System\blood_bank\blood_bank\settings.py changed, reloading.
+INFO 2026-03-01 11:33:55,091 autoreload Watching for file changes with StatReloader
+INFO 2026-03-01 11:33:55,511 basehttp "GET / HTTP/1.1" 200 13147
+WARNING 2026-03-01 11:33:55,546 log Not Found: /static/css/style.css
+WARNING 2026-03-01 11:33:55,546 basehttp "GET /static/css/style.css HTTP/1.1" 404 179
+WARNING 2026-03-01 11:33:55,547 log Not Found: /static/js/main.js
+WARNING 2026-03-01 11:33:55,547 basehttp "GET /static/js/main.js HTTP/1.1" 404 179
+INFO 2026-03-01 11:33:56,045 basehttp "GET / HTTP/1.1" 200 13147
+WARNING 2026-03-01 11:33:56,094 log Not Found: /static/css/style.css
+WARNING 2026-03-01 11:33:56,094 basehttp "GET /static/css/style.css HTTP/1.1" 404 179
+WARNING 2026-03-01 11:33:56,096 log Not Found: /static/js/main.js
+WARNING 2026-03-01 11:33:56,096 basehttp "GET /static/js/main.js HTTP/1.1" 404 179
+WARNING 2026-03-01 11:33:56,225 log Not Found: /static/favicon.png
+WARNING 2026-03-01 11:33:56,226 basehttp "GET /static/favicon.png HTTP/1.1" 404 179
+INFO 2026-03-01 11:33:57,358 basehttp "GET / HTTP/1.1" 200 13147
+WARNING 2026-03-01 11:33:57,433 log Not Found: /static/css/style.css
+WARNING 2026-03-01 11:33:57,434 basehttp "GET /static/css/style.css HTTP/1.1" 404 179
+WARNING 2026-03-01 11:33:57,438 log Not Found: /static/js/main.js
+WARNING 2026-03-01 11:33:57,439 basehttp "GET /static/js/main.js HTTP/1.1" 404 179
+WARNING 2026-03-01 11:33:57,621 log Not Found: /static/favicon.png
+WARNING 2026-03-01 11:33:57,623 basehttp "GET /static/favicon.png HTTP/1.1" 404 179
+INFO 2026-03-01 11:36:00,312 autoreload C:\Users\bibhu\Blood Bank Management System\blood_bank\blood_bank\settings.py changed, reloading.
+INFO 2026-03-01 11:36:01,160 autoreload Watching for file changes with StatReloader
+INFO 2026-03-01 11:36:31,287 autoreload C:\Users\bibhu\Blood Bank Management System\blood_bank\blood_bank\settings.py changed, reloading.
+INFO 2026-03-01 11:36:32,198 autoreload Watching for file changes with StatReloader
+INFO 2026-03-01 11:36:54,530 autoreload Watching for file changes with StatReloader
+INFO 2026-03-01 11:36:56,703 basehttp "GET / HTTP/1.1" 200 13147
+INFO 2026-03-01 11:36:56,959 basehttp "GET /static/css/style.css HTTP/1.1" 200 19460
+INFO 2026-03-01 11:36:56,968 basehttp "GET /static/js/main.js HTTP/1.1" 200 16949
+INFO 2026-03-01 11:36:59,704 basehttp "GET /login/ HTTP/1.1" 200 7585
+INFO 2026-03-01 11:37:05,403 basehttp "POST /login/ HTTP/1.1" 200 7849
+INFO 2026-03-01 11:37:16,474 basehttp "POST /login/ HTTP/1.1" 200 7849
+INFO 2026-03-01 11:37:22,599 basehttp "GET /register/ HTTP/1.1" 200 13446
+INFO 2026-03-01 11:38:37,666 autoreload Watching for file changes with StatReloader
+INFO 2026-03-01 11:38:39,501 basehttp "GET / HTTP/1.1" 200 13147
+INFO 2026-03-01 11:38:45,201 basehttp "GET /login/ HTTP/1.1" 200 7585
+INFO 2026-03-01 11:38:55,889 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2026-03-01 11:38:55,965 basehttp "GET /staff/dashboard/ HTTP/1.1" 200 11874
+INFO 2026-03-01 11:39:05,423 basehttp "GET /logout/ HTTP/1.1" 302 0
+INFO 2026-03-01 11:39:05,446 basehttp "GET / HTTP/1.1" 200 13422
+INFO 2026-03-01 11:39:06,966 basehttp "GET /register/ HTTP/1.1" 200 13446
+INFO 2026-03-01 11:40:06,286 basehttp "POST /register/ HTTP/1.1" 302 0
+INFO 2026-03-01 11:40:06,298 basehttp "GET /login/ HTTP/1.1" 200 7860
+INFO 2026-03-01 11:40:16,401 basehttp "POST /login/ HTTP/1.1" 302 0
+ERROR 2026-03-01 11:40:16,526 log Internal Server Error: /donor/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\bibhu\Blood Bank Management System\blood_bank\testapp\views.py", line 212, in donor_dashboard
+    return render(request, 'testapp/donor_dashboard.html', context)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\bibhu\Django 11.30AM\.venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: testapp/donor_dashboard.html
+ERROR 2026-03-01 11:40:16,534 basehttp "GET /donor/dashboard/ HTTP/1.1" 500 93895
+WARNING 2026-03-01 11:40:16,725 log Not Found: /favicon.ico
+WARNING 2026-03-01 11:40:16,725 basehttp "GET /favicon.ico HTTP/1.1" 404 7317
+INFO 2026-03-01 11:43:59,283 autoreload C:\Users\bibhu\Blood Bank Management System\blood_bank\testapp\views.py changed, reloading.
+INFO 2026-03-01 11:44:01,048 autoreload Watching for file changes with StatReloader
+INFO 2026-03-01 11:44:02,058 basehttp "GET /donor/dashboard/ HTTP/1.1" 200 10596
